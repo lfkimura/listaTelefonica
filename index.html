@@ -1,0 +1,81 @@
+<html ng-app="listaTelefonica">
+<head>
+	<title>Lista Telefonica</title>
+	
+	<link rel="stylesheet" type="text/css" href="lib/bootstrap/bootstrap.css">
+	<style type="text/css">
+		.jumbotron {
+			width: 400px;
+			text-align: center;			
+			margin-top: 20px;
+			margin-left: auto;
+			margin-right: auto;
+			padding:50px;
+		}
+		.inner{
+			padding-right:20px;
+		}
+		.table {
+			margin-top:20px;
+			
+		}
+		.form-control{
+			margin-bottom: 5px;
+		}
+	</style>
+	<script src="lib/angular/angular.js"></script>
+	<script>
+	angular.module("listaTelefonica",[]);
+	angular.module("listaTelefonica").controller("listaTelefonicaCrl", function ($scope){
+		$scope.app="Lista Telefonica";
+		$scope.contatos=[
+			{nome:"Ana",telefone:"19324555"},
+			{nome:"Luisa",telefone:"11991868898"},
+			{nome:"Luis",telefone:"1932493025"},
+			{nome:"Carlos",telefone:"1932493026"},
+			{nome:"Sylvia",telefone:"1932493027"}
+		];
+		$scope.operadoras=[
+			{nome:"Oi",codigo:"14"},
+			{nome:"Tim",codigo:"41"},
+			{nome:"Vivo",codigo:"21"}
+		];
+		$scope.adicionarContato = function(contato){
+			$scope.contatos.push(angular.copy(contato));
+		}
+	});
+
+	</script>
+
+</head>
+
+<body ng-controller="listaTelefonicaCrl">
+<div class="jumbotron">
+	<h3  ng-bind="app" ></h3>
+	<table class="table table-striped">
+		<tr>
+			<th>Nome</th>
+			<th>Telefone</th>
+			<th>Operadora</th>
+		</tr>
+		<tr ng-repeat="contato in contatos">
+			<td>{{contato.nome}}</td>
+			<td>{{contato.telefone}}</td>			
+			<td>{{contato.operadora}}</td>			
+		</tr>
+	</table>
+	<hr/>
+	<input class="form-control" type="text" ng-model="contato.nome"/>
+	<input class="form-control" type="text" ng-model="contato.telefone"/>	
+	<select class="form-control" ng-model="contato.operadora" ng-options="operadora.nome as operadora.nome for operadora in operadoras">
+		<option value="">Selectione a Operadora</option>
+	</select>
+	<button class="btn btn-primary btn-block" ng-disabled="!contato.nome || !contato.telefone" ng-click="adicionarContato(contato)">Adicionar Contato</button>
+	{{nome}}
+	{{telefone}}
+</div>
+
+
+
+</body>
+</html>
